@@ -10,7 +10,7 @@
       cols="12"
       md="3"
     >
-      <card-todo-list :todolist="todoList"  @delete-todo-list="deleteTodoList"/>
+      <card-todo-list :todolist="todoList"  @delete-todo-list="deleteTodoList" @edit-todo-list="editTodoList"/>
     </v-col>
   </v-row>
 </template>
@@ -31,7 +31,9 @@ const addTodoList = (todolist) =>{
   todoListsStore.addTodoList(todolist)
 }
 const deleteTodoList = (id) =>{
-  console.log("delte")
   todoListsStore.removeTodoList(id)
+}
+const editTodoList = (id, title, desciption)=>{
+  todoListsStore.editTodoList(id, title, desciption)
 }
 </script>

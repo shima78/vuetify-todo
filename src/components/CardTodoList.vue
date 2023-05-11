@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import {TodoList} from "@/types/TodoList";
 import {defineProps} from 'vue'
+import CreateTodoListForm from "@/components/CreateTodoListForm.vue";
 
 const emit = defineEmits(["delete-todo-list"])
 const props = defineProps([
   "todolist"
 ])
-console.log(props.todolist)
+
 </script>
 
 <template>
@@ -36,8 +37,13 @@ console.log(props.todolist)
       <v-btn
         @click="$router.push({ name: 'TodoList' })"
         color="blue">
-        view & edit
+        view
       </v-btn>
+
+      <create-todo-list-form :id="props.todolist.id" :edit="true"
+                             :description="props.todolist.description"
+                             :title="props.todolist.title"
+      />
 
       <v-btn
         color="red"

@@ -1,17 +1,28 @@
 <script setup lang="ts">
 import {ref, } from 'vue'
-
+import {useTodoListsStore} from "@/store/useTodoListsStore";
+const todoListsStore = useTodoListsStore()
+const props = defineProps(["id", "title", "description", "edit"])
 const emit = defineEmits(["addTodoList"])
 const dialog = ref(false)
 const todoList = ref({
-  title: '',
-  description: ''
+  title: props.edit?props.title:'',
+  description: props.edit?props.description:'',
 
 })
+console.log(props)
+// eslint-disable-next-line vue/no-setup-props-destructure
+const edit = props.edit
 const save = () =>{
-  console.log(todoList.value, dialog.value)
+  if(edit){
+    editTodoList(props.id, todoList.value.title, todoList.value.description)
+  }
   dialog.value = false;
   emit('addTodoList', todoList.value)
+}
+
+const editTodoList = (id, title, description)=>{
+  todoListsStore.editTodoList(id, title, description)
 }
 </script>
 <template>
@@ -21,13 +32,17 @@ const save = () =>{
       width="1024"
     >
       <template v-slot:activator="{ props }">
-        <v-btn prepend-icon="mdi-plus" v-bind="props" color="green" class="text-white">
+        <v-btn v-if="edit"  v-bind="props" color="primary" >
+          edit
+        </v-btn>
+        <v-btn v-else prepend-icon="mdi-plus" v-bind="props" color="green" class="text-white">
           Add todo list
         </v-btn>
       </template>
       <v-card>
         <v-card-title>
-          <span class="text-h5 mt-4">Add New Todo List</span>
+          <span v-if="props.id">Edit Todo List</span>
+          <span v-else class="text-h5 mt-4">Add New Todo List</span>
         </v-card-title>
         <v-card-text>
           <v-container>
