@@ -35,7 +35,7 @@ const props = defineProps([
 
     <v-card-actions>
       <v-btn
-        @click="$router.push({ name: 'TodoList' })"
+        @click="$router.push({ name: 'TodoList' , params:{id:props.todolist.id}})"
         color="blue">
         view
       </v-btn>

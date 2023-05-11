@@ -17,8 +17,8 @@ const save = () =>{
   if(edit){
     editTodoList(props.id, todoList.value.title, todoList.value.description)
   }
+  else emit('addTodoList', todoList.value)
   dialog.value = false;
-  emit('addTodoList', todoList.value)
 }
 
 const editTodoList = (id, title, description)=>{

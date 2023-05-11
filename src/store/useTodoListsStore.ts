@@ -60,12 +60,22 @@ export const useTodoListsStore = defineStore("todoLists", () => {
     updateLocalStorage();
   }
 
+  function getTodoListById(id:string):TodoList | void{
+    todoLists.value.forEach((todoList) => {
+      if (todoList.id === id) {
+        return todoList
+      }
+    });
+
+  }
+
   return {
     todoLists,
     addTodoList,
     removeTodoList,
     initFromLocalStorage,
     updateLocalStorage,
+    getTodoListById,
     editTodoList,
   };
 });
