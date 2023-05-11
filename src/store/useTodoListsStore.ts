@@ -45,6 +45,27 @@ export const useTodoListsStore = defineStore("todoLists", () => {
     updateLocalStorage();
   }
 
+  function addTodoListItem(id:string,todolistItem: {
+    title: string,
+    description: string,
+    due:string,
+    priority:number
+  }) {
+    todoLists.value.forEach((todoList) => {
+      if (todoList.id === id) {
+        console.log(todoList.items)
+        todoList.items.push({
+          id: nanoid(),
+          title: todolistItem.title,
+          description: todolistItem.description,
+          due: todolistItem.due,
+          priority: todolistItem.priority,
+        })
+      }
+    });
+    updateLocalStorage();
+  }
+
   function removeTodoList(id: string) {
     todoLists.value = todoLists.value.filter((todoList) => todoList.id !== id);
     updateLocalStorage();
@@ -74,6 +95,7 @@ export const useTodoListsStore = defineStore("todoLists", () => {
     addTodoList,
     removeTodoList,
     initFromLocalStorage,
+    addTodoListItem,
     updateLocalStorage,
     getTodoListById,
     editTodoList,

@@ -1,15 +1,18 @@
 <script setup lang="ts">
 import {ref, } from 'vue'
-import {useTodoListsStore} from "@/store/useTodoListsStore";
-const todoListsStore = useTodoListsStore()
 const props = defineProps(["id", "todo", "edit"])
 const emit = defineEmits(["addTodoItem"])
 const dialog = ref(false)
-const todo = ref(props.todo)
-console.log(todo.value)
 // eslint-disable-next-line vue/no-setup-props-destructure
 const edit = props.edit
+const todo = ref({
+  title:'',
+  description:'',
+  due: null,
+  priority: 0,
+})
 const save = () =>{
+  console.log(todo.value)
   if(edit){
     //
   }
