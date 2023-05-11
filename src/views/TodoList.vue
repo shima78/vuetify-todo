@@ -1,10 +1,8 @@
 <script setup lang="ts">
-
-import HelloWorld from "@/components/HelloWorld.vue";
+import CardTodoList from "@/components/CardTodoList.vue";
 </script>
-
 <template>
-  <HelloWorld />
+
 </template>
 
 <style scoped>
