@@ -1,4 +1,22 @@
-# default
+
+# Vuetify Todo
+
+This is a simple todo app project with following features:
+* Create new todo list
+* Edit and delete previous todo lists
+* Add, edit and delete todo list item
+* Sort items based on title, due date... [multi sort]
+* Search items by title, description
+* Filter items based on thier completion status
+* Show/hide columns
+
+
+
+
+## Demo
+
+https://vuetify-todo-shima78.netlify.app/
+
 
 ## Project setup
 
@@ -39,6 +57,3 @@ npm run build
 pnpm build
 ```
 
-### Customize configuration
-
-See [Configuration Reference](https://vitejs.dev/config/).
