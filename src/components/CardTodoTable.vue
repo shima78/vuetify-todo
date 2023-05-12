@@ -50,6 +50,9 @@ const editTodoListItem = (todoId:string, todo)=>{
   }
   todoListsStore.editTodoListItem(props.todolist.id, myTodo)
 }
+const toggleTodoListItem = (todoId)=>{
+  todoListsStore.toggleTodoListItem(props.todolist.id, todoId)
+}
 </script>
 <template>
   <v-card
@@ -96,9 +99,16 @@ const editTodoListItem = (todoId:string, todo)=>{
         <template v-slot:item="{item}">
           <tr>
             <td v-for="(col,index) in selectedHeaders" :key="index">
-              <span v-if="col.title !== 'Actions'">
+              <span v-if="col.title=== 'Complete'">
+               <v-checkbox
+                 v-model="item.columns.complete"
+                 color="success"
+                 @change="toggleTodoListItem(item.columns.id)"
+                 hide-details
+               ></v-checkbox>
+              </span>
+              <span v-else-if="col.title !== 'Actions'">
                 {{ item.columns[col.key] }}
-
               </span>
               <span v-else>
                 <create-todo-list-item :id="item.columns.id" :todo="item.columns" :edit="true" @edit-todo-item="editTodoListItem"/>

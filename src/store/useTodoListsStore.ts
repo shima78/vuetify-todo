@@ -79,6 +79,17 @@ export const useTodoListsStore = defineStore("todoLists", () => {
     });
     updateLocalStorage();
   }
+  function toggleTodoListItem(id:string,todoId:string) {
+    todoLists.value.forEach((todoList) => {
+      if (todoList.id === id) {
+        const itemIndex = todoList.items.findIndex((item) => item.id === todoId);
+        if (itemIndex > -1) {
+          todoList.items[itemIndex].complete =  !todoList.items[itemIndex].complete
+        }
+      }
+    });
+    updateLocalStorage();
+  }
 
   function editTodoListItem(id:string, todo:TodoItem) {
     todoLists.value.forEach((todoList) => {
@@ -124,6 +135,7 @@ export const useTodoListsStore = defineStore("todoLists", () => {
     addTodoListItem,
     removeTodoListItem,
     editTodoListItem,
+    toggleTodoListItem,
     updateLocalStorage,
     getTodoListById,
     editTodoList,

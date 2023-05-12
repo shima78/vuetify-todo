@@ -10,7 +10,7 @@ const todo = ref({
   description:props.edit?props.todo.description: '',
   due: props.edit?props.todo.due: '',
   priority: props.edit?props.todo.priority: 0,
-  completed: props.edit?props.todo.complete: false
+  complete: props.edit?props.todo.complete: false
 })
 const save = () =>{
   if(edit){
