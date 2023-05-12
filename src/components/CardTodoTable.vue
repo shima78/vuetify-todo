@@ -1,17 +1,15 @@
 <script setup lang="ts">
-import {computed, onMounted, ref} from 'vue'
+import {onMounted, ref} from 'vue'
 import { VDataTable } from 'vuetify/labs/VDataTable'
 import {useTodoListsStore} from "@/store/useTodoListsStore";
 import router from "@/router";
 const todoListsStore = useTodoListsStore()
 import CreateTodoListItem from "@/components/createTodoListItem.vue";
-import TodoList from "@/views/TodoList.vue";
-import {fi} from "vuetify/locale";
+
 const props = defineProps(['todolist'])
 const selectItems = ref( [
   {
     title: 'Title',
-    align: 'start',
     sortable: true,
     key: 'title',
   },
@@ -22,7 +20,6 @@ const selectItems = ref( [
 const selectedHeaders = ref( [
   {
     title: 'Title',
-    align: 'start',
     sortable: true,
     key: 'title',
   },

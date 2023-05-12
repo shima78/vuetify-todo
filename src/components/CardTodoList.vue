@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {TodoList} from "@/types/TodoList";
 import {defineProps} from 'vue'
+import router from "@/router";
 import CreateTodoListForm from "@/components/CreateTodoListForm.vue";
 
 const emit = defineEmits(["delete-todo-list"])
@@ -35,7 +35,7 @@ const props = defineProps([
 
     <v-card-actions>
       <v-btn
-        @click="$router.push({ name: 'TodoList' , params:{id:props.todolist.id}})"
+        @click="router.push({ name: 'TodoList' , params:{id:props.todolist.id}})"
         color="blue">
         view
       </v-btn>
