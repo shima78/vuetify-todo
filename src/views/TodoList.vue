@@ -6,14 +6,11 @@ import {useRoute} from 'vue-router';
 import {storeToRefs} from "pinia";
 const route = useRoute()
 const todoListsStore = useTodoListsStore()
-const todoList = ref({})
-const { todoLists } = storeToRefs(todoListsStore);
-onMounted(()=>{
-  todoList.value = todoLists.value.filter(list => list.id == route.params.id.toString())[0]
-})
+
+
 </script>
 <template>
-  <card-todo-table :todolist="todoList"/>
+  <card-todo-table :todolist="todoListsStore.getTodoListById(route.params.id.toString())"/>
 </template>
 
 <style scoped>

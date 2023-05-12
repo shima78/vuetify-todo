@@ -118,12 +118,19 @@ export const useTodoListsStore = defineStore("todoLists", () => {
     updateLocalStorage();
   }
 
-  function getTodoListById(id:string):TodoList | void{
+  function getTodoListById(id:string){
+    let todolist = {
+      title:'',
+      description:'',
+
+
+    }
     todoLists.value.forEach((todoList) => {
-      if (todoList.id === id) {
-        return todoList
+      if (todoList.id == id) {
+        todolist = todoList
       }
     });
+    return todolist
 
   }
 
