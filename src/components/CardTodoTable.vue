@@ -63,7 +63,7 @@ const toggleTodoListItem = (todoId)=>{
 const filter =ref({
   title: '',
   description : '',
-  due: '',
+  due: null,
   complete : null,
   priority : null,
 })
@@ -73,12 +73,22 @@ onMounted(()=> {
   filteredItems.value = [...props.todolist.items]
 })
 const onFilter = ()=>{
+    filteredItems.value = [...props.todolist.items]
     if(filter.value.complete!=null) {
       filteredItems.value = props.todolist.items.filter(item =>item.complete === filter.value.complete)
     }
     if(filter.value.priority!=null){
       filteredItems.value = [...filteredItems.value.filter(item =>parseInt(item.priority) > parseInt(filter.value.priority))]
     }
+  if(filter.value.due!=null){
+    filteredItems.value = [...filteredItems.value.filter(item =>Date.parse(item.due) > Date.parse(filter.value.due))]
+  }
+  if(filter.value.description!=''){
+    filteredItems.value = [...filteredItems.value.filter(item => item.description.toLowerCase().includes(filter.value.description.toLowerCase()))]
+  }
+  if(filter.value.title!=''){
+    filteredItems.value = [...filteredItems.value.filter(item => item.title.toLowerCase().includes(filter.value.title.toLowerCase()))]
+  }
   console.log(filteredItems.value)
 }
 const resetfilters = () =>{
@@ -86,7 +96,7 @@ const resetfilters = () =>{
   filter.value = {
     title: '',
     description : '',
-    due: '',
+    due: null,
     complete : null,
     priority : null,
   }
@@ -135,12 +145,21 @@ const resetfilters = () =>{
         <v-col v-for="(col,index) in selectedHeaders" :key="index">
           <v-switch @change="onFilter" v-model="filter.complete"  v-if="col.title=== 'Complete'" color="success"></v-switch>
           <v-text-field
+            label="title"
+            v-model="filter.title"
+            @change="onFilter"
             class="mt-1 ml-0"
             v-else-if="col.title==='Title'" type="text" ></v-text-field>
           <v-text-field
+            label="description"
             class="mt-1 ml-0"
+            v-model="filter.description"
+            @change="onFilter"
             v-else-if="col.title==='Description'" type="text" ></v-text-field>
           <v-text-field
+            label="After this date"
+            v-model="filter.due"
+            @change="onFilter"
             class="mt-1 ml-0"
             v-else-if="col.title==='Due date'" type="date" ></v-text-field>
           <v-text-field
