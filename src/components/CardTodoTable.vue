@@ -2,6 +2,7 @@
 import {computed, onMounted, ref} from 'vue'
 import { VDataTable } from 'vuetify/labs/VDataTable'
 import {useTodoListsStore} from "@/store/useTodoListsStore";
+import router from "@/router";
 const todoListsStore = useTodoListsStore()
 import CreateTodoListItem from "@/components/createTodoListItem.vue";
 import TodoList from "@/views/TodoList.vue";
@@ -24,7 +25,6 @@ const selectedHeaders = ref( [
     align: 'start',
     sortable: true,
     key: 'title',
-    filter: f => { return ( f + '' ).toLowerCase().includes( this[ 'name' ].toLowerCase() ) }
   },
   { title: 'Description', key: 'description' },
   { title: 'Due date', key: 'due' },
@@ -95,7 +95,7 @@ const resetfilters = () =>{
 </script>
 <template>
   <v-card
-    class="mx-4 mb-12 mt-8"
+    class="mx-4 mb-12"
 
   >
     <v-card-item
@@ -103,7 +103,9 @@ const resetfilters = () =>{
       height="200"
       cover
     >
-      <v-card-title>{{ props.todolist.title }}</v-card-title>
+      <v-card-title>
+        <v-btn icon="mdi-arrow-left" size="small" class="text-white bg-blue" flat @click="router.back()"></v-btn>
+        {{ props.todolist.title }}</v-card-title>
     </v-card-item>
     <v-card-subtitle class="pt-4">
       {{ props.todolist.creationDate }}
@@ -123,7 +125,7 @@ const resetfilters = () =>{
           <v-chip v-if="index < 2">
             <span>{{ item.title }}</span>
           </v-chip>
-          <span v-if="index === 2" class="grey--text caption">(+{{ selectedHeaders.length - 2 }} others)</span>
+          <span v-if="index === 2" class="grey--text caption">(+{{ selectedHeaders.length - 4 }} others)</span>
         </template>
       </v-select>
     </v-card-item>
