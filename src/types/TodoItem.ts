@@ -4,4 +4,5 @@ export type TodoItem = {
   description: string;
   due : string;
   priority: number;
+  complete:boolean;
 };

@@ -6,33 +6,49 @@ import {useRoute} from 'vue-router';
 const todoListsStore = useTodoListsStore()
 import CreateTodoListItem from "@/components/createTodoListItem.vue";
 const props = defineProps(['todolist'])
-const sortBy= ref([{ key: 'calories', order: 'asc' }])
 const headers = ref( [
   {
-    title: 'title',
+    title: 'Title',
     align: 'start',
     sortable: true,
     key: 'title',
   },
-  { title: 'description', key: 'description' },
-  { title: 'due date', key: 'due' },
-  { title: 'priority', key: 'priority' },
-  { title: 'Actions', key: '', sortable: false},
+  { title: 'Description', key: 'description' },
+  { title: 'Due date', key: 'due' },
+  { title: 'Priority', key: 'priority' },
+  { title: 'Complete', key: 'complete' },
+  { title: 'Actions', key: 'id', sortable: false},
 ])
 const selectedHeaders = ref( [
   {
-    title: 'title',
+    title: 'Title',
     align: 'start',
     sortable: true,
     key: 'title',
   },
-  { title: 'description', key: 'description' },
-  { title: 'due date', key: 'due' },
-  { title: 'priority', key: 'priority' },
-  { title: 'Actions', key: '', sortable: false},
+  { title: 'Description', key: 'description' },
+  { title: 'Due date', key: 'due' },
+  { title: 'Priority', key: 'priority' },
+  { title: 'Complete', key: 'complete' },
+  { title: 'Actions', key: 'id', sortable: false},
 ])
+
 const addTodoListItem = (todo)=>{
   todoListsStore.addTodoListItem(props.todolist.id,todo)
+}
+const removeTodoListItem = (todoId)=>{
+  todoListsStore.removeTodoListItem(props.todolist.id,todoId)
+}
+const editTodoListItem = (todoId:string, todo)=>{
+  const myTodo = {
+    id: todoId,
+    title: todo.title,
+    description: todo.description,
+    due: todo.due,
+    priority: todo.priority,
+    complete: todo.complete,
+  }
+  todoListsStore.editTodoListItem(props.todolist.id, myTodo)
 }
 </script>
 <template>
@@ -77,6 +93,21 @@ const addTodoListItem = (todo)=>{
         :items-per-page="5"
         class="elevation-1"
       >
+        <template v-slot:item="{item}">
+          <tr>
+            <td v-for="(col,index) in selectedHeaders" :key="index">
+              <span v-if="col.title !== 'Actions'">
+                {{ item.columns[col.key] }}
+
+              </span>
+              <span v-else>
+                <create-todo-list-item :id="item.columns.id" :todo="item.columns" :edit="true" @edit-todo-item="editTodoListItem"/>
+                <v-btn icon="mdi-delete" size="small" class="text-red ml-2" @click="removeTodoListItem(item.columns.id)"></v-btn>
+              </span>
+            </td>
+
+          </tr>
+        </template>
       </v-data-table>
     </v-card-item>
 

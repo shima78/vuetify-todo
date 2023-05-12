@@ -2,6 +2,7 @@ import { ref, type Ref } from "vue";
 import { defineStore } from "pinia";
 import { nanoid } from "nanoid";
 import {TodoList} from "@/types/TodoList";
+import {TodoItem} from "@/types/TodoItem";
 
 
 
@@ -60,7 +61,32 @@ export const useTodoListsStore = defineStore("todoLists", () => {
           description: todolistItem.description,
           due: todolistItem.due,
           priority: todolistItem.priority,
+          complete: false
         })
+      }
+    });
+    updateLocalStorage();
+  }
+
+  function removeTodoListItem(id:string,todoId:string) {
+    todoLists.value.forEach((todoList) => {
+      if (todoList.id === id) {
+        const itemIndex = todoList.items.findIndex((item) => item.id === todoId);
+        if (itemIndex > -1) {
+          todoList.items.splice(itemIndex, 1);
+        }
+      }
+    });
+    updateLocalStorage();
+  }
+
+  function editTodoListItem(id:string, todo:TodoItem) {
+    todoLists.value.forEach((todoList) => {
+      if (todoList.id === id) {
+        const itemIndex = todoList.items.findIndex((item) => item.id === todo.id);
+        if (itemIndex > -1) {
+          todoList.items[itemIndex] = todo;
+        }
       }
     });
     updateLocalStorage();
@@ -96,6 +122,8 @@ export const useTodoListsStore = defineStore("todoLists", () => {
     removeTodoList,
     initFromLocalStorage,
     addTodoListItem,
+    removeTodoListItem,
+    editTodoListItem,
     updateLocalStorage,
     getTodoListById,
     editTodoList,

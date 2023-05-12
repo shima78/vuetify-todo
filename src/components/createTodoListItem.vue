@@ -1,20 +1,20 @@
 <script setup lang="ts">
 import {ref, } from 'vue'
 const props = defineProps(["id", "todo", "edit"])
-const emit = defineEmits(["addTodoItem"])
+const emit = defineEmits(["addTodoItem", "removeTodoItem"])
 const dialog = ref(false)
 // eslint-disable-next-line vue/no-setup-props-destructure
 const edit = props.edit
 const todo = ref({
-  title:'',
-  description:'',
-  due: null,
-  priority: 0,
+  title:props.edit?props.todo.title: '',
+  description:props.edit?props.todo.description: '',
+  due: props.edit?props.todo.due: '',
+  priority: props.edit?props.todo.priority: 0,
+  completed: props.edit?props.todo.complete: false
 })
 const save = () =>{
-  console.log(todo.value)
   if(edit){
-    //
+    emit('editTodoItem',props.id, todo.value)
   }
   else emit('addTodoItem', todo.value)
   dialog.value = false;
@@ -31,9 +31,7 @@ const save = () =>{
     width="1024"
   >
     <template v-slot:activator="{ props }">
-      <v-btn v-if="edit"  v-bind="props" color="primary" >
-        edit
-      </v-btn>
+      <v-btn v-if="edit" v-bind="props" icon="mdi-pencil" size="small" class="text-blue"></v-btn>
       <v-btn v-else prepend-icon="mdi-plus" v-bind="props" color="green" class="text-white">
         Add Todo Item
       </v-btn>
