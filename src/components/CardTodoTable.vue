@@ -129,7 +129,7 @@ const resetfilters = () =>{
     <v-card-item class="w-50">
       <v-select v-model="selectedHeaders" :items="selectItems" label="Select Columns" multiple outlined return-object>
         <template v-slot:selection="{ item, index }">
-          <v-chip v-if="index < 2">
+          <v-chip class="mb-2" v-if="index < 2">
             <span>{{ item.title }}</span>
           </v-chip>
           <span v-if="index === 2" class="grey--text caption">(+{{ selectedHeaders.length - 4 }} others)</span>
@@ -139,8 +139,8 @@ const resetfilters = () =>{
 
     <v-card-item>
       <v-row >
-        <v-col v-for="(col,index) in selectedHeaders" :key="index">
-          <v-switch @change="onFilter" v-model="filter.complete"  v-if="col.title=== 'Complete'" color="success"></v-switch>
+        <v-col style="min-width: 8em" v-for="(col,index) in selectedHeaders" :key="index">
+          <v-switch class="ml-2" label="complete" @change="onFilter" v-model="filter.complete"  v-if="col.title=== 'Complete'" color="success"></v-switch>
           <v-text-field
             label="title"
             v-model="filter.title"
