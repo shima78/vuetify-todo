@@ -9,6 +9,7 @@ This is a simple todo app project with following features:
 * Search items by title, description
 * Filter items based on thier completion status
 * Show/hide columns
+* Notify user about today's due dates
 
 
 

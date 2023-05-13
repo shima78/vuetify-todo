@@ -19,9 +19,7 @@
         </v-btn>
 
       </v-app-bar>
-      <v-main class="mb-12 mr-0 "
-
-      >
+      <v-main class="mb-12 mr-0">
         <router-view/>
       </v-main>
     </v-layout>
@@ -29,6 +27,6 @@
 </template>
 
 <script lang="ts" setup>
-//
+
 import router from "@/router";
 </script>

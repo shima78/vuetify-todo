@@ -24,9 +24,7 @@ import {onMounted} from 'vue'
 const todoListsStore = useTodoListsStore()
 
 const { todoLists } = storeToRefs(todoListsStore);
-onMounted(()=>{
-  todoListsStore.initFromLocalStorage()
-})
+
 const addTodoList = (todolist) =>{
   todoListsStore.addTodoList(todolist)
 }
